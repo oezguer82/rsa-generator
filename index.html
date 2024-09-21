@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Responsive Search Ads Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1, h2 { color: #1a73e8; }
+        h3 { margin-top: 20px; }
+        input, textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        textarea { height: 60px; }
+        .sitelink { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+        .alert, .explanation { background-color: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-top: 20px; }
+        ul { padding-left: 20px; }
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Responsive Search Ads Generator</h1>
+
+    <div class="explanation">
+        <h2>Kurzerklärung der Bestandteile:</h2>
+        <ul>
+            <li><strong>Headlines (Überschriften):</strong> Kurze, prägnante Texte, die die Aufmerksamkeit des Nutzers erregen sollen. Google kombiniert diese dynamisch.</li>
+            <li><strong>Beschreibungen:</strong> Detailliertere Informationen über Ihr Angebot. Sie ergänzen die Headlines und geben dem Nutzer mehr Kontext.</li>
+            <li><strong>Sitelinks:</strong> Zusätzliche Links zu spezifischen Seiten Ihrer Website, die unter der Hauptanzeige erscheinen können.</li>
+            <li><strong>Callouts:</strong> Kurze Textzeilen, die wichtige Merkmale oder Vorteile Ihres Angebots hervorheben.</li>
+            <li><strong>Snippets:</strong> Strukturierte Aufzählungen von Eigenschaften oder Angeboten, die Ihre Anzeige erweitern.</li>
+        </ul>
+    </div>
+
+    <div id="app">
+        <h3>Headlines (max. 30 Zeichen):</h3>
+        <div id="headlines"></div>
+        
+        <h3>Beschreibungen (max. 90 Zeichen):</h3>
+        <div id="descriptions"></div>
+        
+        <h3>Sitelinks:</h3>
+        <div id="sitelinks"></div>
+        
+        <h3>Callouts (max. 25 Zeichen):</h3>
+        <div id="callouts"></div>
+        
+        <h3>Snippets (max. 25 Zeichen):</h3>
+        <div id="snippets"></div>
+    </div>
+
+    <div class="alert">
+        <strong>Bitte beachten Sie die folgenden Zeichenlimits:</strong>
+        <ul>
+            <li>Headlines: 30 Zeichen</li>
+            <li>Beschreibungen: 90 Zeichen</li>
+            <li>Sitelink Titel: 25 Zeichen</li>
+            <li>Sitelink Beschreibungen: 35 Zeichen pro Zeile</li>
+            <li>Callouts: 25 Zeichen</li>
+            <li>Snippets: 25 Zeichen</li>
+        </ul>
+    </div>
+
+    <script>
+        function createInputs(container, count, type, maxLength, placeholder) {
+            const elem = document.getElementById(container);
+            for (let i = 0; i < count; i++) {
+                const input = type === 'textarea' ? document.createElement('textarea') : document.createElement('input');
+                input.maxLength = maxLength;
+                input.placeholder = `${placeholder} ${i + 1}`;
+                elem.appendChild(input);
+            }
+        }
+
+        function createSitelinks() {
+            const elem = document.getElementById('sitelinks');
+            for (let i = 0; i < 4; i++) {
+                const div = document.createElement('div');
+                div.className = 'sitelink';
+                div.innerHTML = `
+                    <input type="text" maxlength="25" placeholder="Titel (max. 25 Zeichen)">
+                    <input type="text" maxlength="35" placeholder="Beschreibung 1 (max. 35 Zeichen)">
+                    <input type="text" maxlength="35" placeholder="Beschreibung 2 (max. 35 Zeichen)">
+                    <input type="text" placeholder="URL">
+                `;
+                elem.appendChild(div);
+            }
+        }
+
+        createInputs('headlines', 6, 'input', 30, 'Headline');
+        createInputs('descriptions', 2, 'textarea', 90, 'Beschreibung');
+        createSitelinks();
+        createInputs('callouts', 5, 'input', 25, 'Callout');
+        createInputs('snippets', 5, 'input', 25, 'Snippet');
+    </script>
+</body>
+</html>
